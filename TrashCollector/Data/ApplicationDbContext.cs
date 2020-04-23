@@ -29,12 +29,12 @@ namespace TrashCollector.Data
                     new IdentityRole
                     {
                         Name = "Customer",
-                        NormalizedName = "CSTMR"
+                        NormalizedName = "Customer"
                     },
                     new IdentityRole
                     {
                         Name = "Employee",
-                        NormalizedName = "EMPLY"
+                        NormalizedName = "Employee"
                     }
                 );
         }
