@@ -48,11 +48,14 @@ namespace TrashCollector.Controllers
             return View(customer);
         }
 
+        
+        
         [HttpGet]
         public IActionResult Create()
         {
             var customer = new Customer();
-            return View(customer);
+            
+            return View(customer); 
         }
 
         [HttpPost]

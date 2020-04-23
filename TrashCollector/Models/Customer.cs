@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,8 +15,8 @@ namespace TrashCollector.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DayOfWeek WeeklyPickupDay { get; set; }
-        public DateTime OneTimePickup { get; set; }
+        public string WeeklyPickupDay { get; set; }
+        public string OneTimePickup { get; set; }
         public string StreetAddress { get; set; }
         public int ZipCode { get; set; }
         public bool ServiceIsActive { get; set; }
@@ -25,6 +26,9 @@ namespace TrashCollector.Models
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
-
+        [NotMapped]
+        public SelectList weekDays { get; set; }
+        
+        
     }
 }
