@@ -26,8 +26,7 @@ namespace TrashCollector.Models
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
-        [NotMapped]
-        public SelectList weekDays { get; set; }
+        
         
         
     }

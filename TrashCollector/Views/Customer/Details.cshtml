@@ -32,8 +32,15 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.OneTimePickup)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OneTimePickup)
+        <dd class="col-sm-10">
+            @if (Model.OneTimePickup == null)
+            {
+                <p>none selected</p>
+            }
+            else
+            { 
+                @Html.DisplayFor(model => model.OneTimePickup)
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StreetAddress)
@@ -58,13 +65,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AccountBalance)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdentityUser.Id)
-        </dd>
+        </dd>        
     </dl>
 </div>
 <div>

@@ -53,8 +53,7 @@ namespace TrashCollector.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var customer = new Customer();
-            
+            var customer = new Customer();            
             return View(customer); 
         }
 
@@ -65,9 +64,11 @@ namespace TrashCollector.Controllers
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                customer.IdentityUserId = userId;
-                _context.Add(customer);
-                _context.SaveChangesAsync();
+                customer.IdentityUserId = userId;                
+                _context.Customers.Add(customer);
+                customer.ServiceIsActive = true;
+                customer.AccountBalance = 0;
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
