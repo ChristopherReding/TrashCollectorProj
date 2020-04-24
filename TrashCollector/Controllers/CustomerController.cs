@@ -23,10 +23,17 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customer
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId);
+            return View(customer);
+                       
+            
+            
+            
+            //var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Customer/Details/5
@@ -71,7 +78,7 @@ namespace TrashCollector.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+           
             return View(customer);
         }
 
@@ -88,7 +95,7 @@ namespace TrashCollector.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            
             return View(customer);
         }
 
