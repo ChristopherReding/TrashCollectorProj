@@ -22,13 +22,22 @@ namespace TrashCollector.Controllers
 
         // GET: Employee
         public IActionResult Index()
-        {
+        {            
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-            DateTime dt = DateTime.Now;
-            var customerList = _context.Customers.Where(c => c.WeeklyPickupDay == (dt.DayOfWeek).ToString() && c.ZipCode == employee.ZipCode).ToList();
-            var employeeCustomerViewModel = new EmployeeCustomerViewModel(employee, customerList);
-            return View(employeeCustomerViewModel);
+            try
+            {
+                var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+                DateTime dt = DateTime.Now;
+                var customerList = _context.Customers.Where(c => c.WeeklyPickupDay == dt.DayOfWeek.ToString() && c.ZipCode == employee.ZipCode).ToList();
+                var employeeCustomerViewModel = new EmployeeCustomerViewModel(employee, customerList);
+                return View(employeeCustomerViewModel);
+
+            }
+            catch
+            {
+                return RedirectToAction("Create");
+            }            
+            
         }
         //[HttpPost]
         //public IActionResult Index(Employee employee)
@@ -38,6 +47,24 @@ namespace TrashCollector.Controllers
         //    return View(customerList);
         //}
 
+        // Get: Day of Week details
+        public IActionResult DailyDetails(string dayOfWeek)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
+            {
+                var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+                var customerList = _context.Customers.Where(c => c.WeeklyPickupDay == dayOfWeek && c.ZipCode == employee.ZipCode).ToList();
+                var employeeCustomerViewModel = new EmployeeCustomerViewModel(employee, customerList);
+                return View(employeeCustomerViewModel);
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+            
+        }
+            
         // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,24 +87,24 @@ namespace TrashCollector.Controllers
         // GET: Employee/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            var employee = new Employee();
+            return View(employee);
         }
 
-        // POST: Employee/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,FirstName,LastName,ZipCode,IdentityUserId")] Employee employee)
+        public IActionResult Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
+            
             return View(employee);
         }
 
