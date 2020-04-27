@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrashCollector.Models.Employee>
+﻿@model IEnumerable<TrashCollector.Models.EmployeeCustomerViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.customer.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LastName)

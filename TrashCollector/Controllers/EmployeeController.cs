@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,11 +21,22 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            DateTime dt = DateTime.Now;
+            var customerList = _context.Customers.Where(c => c.WeeklyPickupDay == (dt.DayOfWeek).ToString() && c.ZipCode == employee.ZipCode).ToList();
+            var employeeCustomerViewModel = new EmployeeCustomerViewModel(employee, customerList);
+            return View(employeeCustomerViewModel);
         }
+        //[HttpPost]
+        //public IActionResult Index(Employee employee)
+        //{
+        //    DateTime dt = DateTime.Now;
+        //    var customerList = _context.Customers.Where(c => c.WeeklyPickupDay == (dt.DayOfWeek).ToString() && c.ZipCode == employee.ZipCode);
+        //    return View(customerList);
+        //}
 
         // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
