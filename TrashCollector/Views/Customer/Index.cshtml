@@ -8,10 +8,13 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">New Customer? Click here to get started!</a>
+   <a asp-action="Create">New Customer? Click here to get started!</a>
 </p>
+
+
 <table class="table">
     <thead>
+
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -71,7 +74,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">End Service</a>
             </td>
         </tr>
 }
