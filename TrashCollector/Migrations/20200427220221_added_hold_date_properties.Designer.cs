@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200427220221_added_hold_date_properties")]
+    partial class added_hold_date_properties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,22 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e6391eeb-0042-440e-8434-f6d566b68b11",
-                            ConcurrencyStamp = "d851f8a3-2d3a-442d-8514-0098411c283a",
+                            Id = "7a4cd775-6f3a-4839-8693-3a698bd12e51",
+                            ConcurrencyStamp = "29e32514-6bec-4adf-b20d-ca4ec3177df0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "85ab3b1a-a4ec-49f1-a940-92b1dd8208cd",
-                            ConcurrencyStamp = "8a2d10d0-e5c2-4e4d-8155-979cc7f37120",
+                            Id = "08c646f6-9758-4850-a393-077d53f7b358",
+                            ConcurrencyStamp = "9418ffa0-3db5-4318-aa52-99ff6d0533ac",
                             Name = "Customer",
                             NormalizedName = "Customer"
                         },
                         new
                         {
-                            Id = "981b2c2d-b5a6-46d4-b24c-e2e050b24ff0",
-                            ConcurrencyStamp = "7b6430c8-57f0-476f-9ca0-37009e6006e8",
+                            Id = "95c58b2b-2dab-4767-b4c5-8c8beec99441",
+                            ConcurrencyStamp = "b22f9be5-a54f-463e-b299-e34d56097dd5",
                             Name = "Employee",
                             NormalizedName = "Employee"
                         });
@@ -248,7 +250,7 @@ namespace TrashCollector.Migrations
                     b.Property<double>("AccountBalance")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("EndServiceHold")
+                    b.Property<DateTime>("EndServiceHold")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
@@ -260,13 +262,13 @@ namespace TrashCollector.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("OneTimePickup")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("OneTimePickup")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("ServiceIsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("StartServiceHold")
+                    b.Property<DateTime>("StartServiceHold")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("StreetAddress")

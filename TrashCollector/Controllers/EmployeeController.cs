@@ -29,6 +29,14 @@ namespace TrashCollector.Controllers
                 var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
                 DateTime dt = DateTime.Now;
                 var customerList = _context.Customers.Where(c => c.WeeklyPickupDay == dt.DayOfWeek.ToString() && c.ZipCode == employee.ZipCode).ToList();
+                foreach(var item in _context.Customers.Where(c => c.OneTimePickup == dt.Date))
+                {
+                    customerList.Add(item);
+                }
+                foreach(var item in _context.Customers.Where(c => c.StartServiceHold < dt.Date && c.EndServiceHold < dt.Date))
+                {
+                    customerList.Remove(item);
+                }
                 var employeeCustomerViewModel = new EmployeeCustomerViewModel(employee, customerList);
                 return View(employeeCustomerViewModel);
 

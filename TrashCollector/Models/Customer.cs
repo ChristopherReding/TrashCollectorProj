@@ -16,7 +16,9 @@ namespace TrashCollector.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string WeeklyPickupDay { get; set; }
-        public string OneTimePickup { get; set; }
+        public DateTime? OneTimePickup { get; set; }
+        public DateTime? StartServiceHold { get; set; }
+        public DateTime? EndServiceHold { get; set; }
         public string StreetAddress { get; set; }
         public int ZipCode { get; set; }
         public bool ServiceIsActive { get; set; }
