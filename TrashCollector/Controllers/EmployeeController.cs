@@ -92,22 +92,15 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .Include(e => e.IdentityUser)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            return View(employee);
+            var customer = _context.Customers.Where(m => m.Id == id).FirstOrDefault();
+            return View(customer);
         }
 
         // GET: Employee/Create
