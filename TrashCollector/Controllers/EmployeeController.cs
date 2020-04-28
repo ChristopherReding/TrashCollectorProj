@@ -33,7 +33,7 @@ namespace TrashCollector.Controllers
                 {
                     customerList.Add(item);
                 }
-                foreach(var item in _context.Customers.Where(c => c.StartServiceHold < dt.Date && c.EndServiceHold < dt.Date))
+                foreach(var item in _context.Customers.Where(c => c.StartServiceHold < dt.Date && c.EndServiceHold > dt.Date))
                 {
                     customerList.Remove(item);
                 }

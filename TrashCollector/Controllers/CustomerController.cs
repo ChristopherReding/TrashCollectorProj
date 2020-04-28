@@ -23,7 +23,7 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index()        
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId);
@@ -98,13 +98,12 @@ namespace TrashCollector.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,WeeklyPickupDay,OneTimePickup,StreetAddress,ZipCode,ServiceIsActive,AccountBalance,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,WeeklyPickupDay,OneTimePickup,StreetAddress,ZipCode,ServiceIsActive,StartServiceHold,EndServiceHold,AccountBalance,IdentityUserId")] Customer customer)
         {
             if (id != customer.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
