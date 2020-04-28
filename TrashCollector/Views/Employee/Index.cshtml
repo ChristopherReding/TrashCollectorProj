@@ -38,9 +38,7 @@
                 @Html.DisplayFor(modelItem => item.ZipCode)
             </td>            
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="ConfirmPickup" asp-route-id="@item.Id">Confirm Pickup</a>                 
             </td>
         </tr>
 
@@ -51,6 +49,7 @@
         <a asp-action="DailyDetails" asp-route-dayOfWeek="Wednesday">Wednesday</a> |
         <a asp-action="DailyDetails" asp-route-dayOfWeek="Thursday">Thursday</a> |
         <a asp-action="DailyDetails" asp-route-dayOfWeek="Friday">Friday</a> |
+        <a asp-action="Index">Today</a>
     </p>
     </tbody>
 </table>

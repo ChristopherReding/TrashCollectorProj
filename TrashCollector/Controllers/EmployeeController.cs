@@ -72,7 +72,25 @@ namespace TrashCollector.Controllers
             }
             
         }
-            
+        [HttpGet]
+        public IActionResult ConfirmPickup(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var customer = _context.Customers.Where(c => c.Id == id).SingleOrDefault();
+            return View(customer);
+        }
+        [HttpPost]
+        public IActionResult ConfirmPickup(Customer customer)
+        {            
+            customer.AccountBalance = customer.AccountBalance + 5.00;
+            _context.Update(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
         {
